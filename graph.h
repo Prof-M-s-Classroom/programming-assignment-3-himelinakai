@@ -1,12 +1,43 @@
 #ifndef GRAPH_H
 #define GRAPH_H
+//using std namespace;
 
 class Graph {
 public:
-    Graph(int vertices);
-    ~Graph();
-    void addEdge(int u, int v, int weight);
+    Graph(int vertices) {
+        // need v x v matrix
+        int inf = INT_MAX;
+        numVertices = vertices;
+        adjMatrix = new int*[numVertices];
+        for (int i = 0; i < numVertices; i++) {
+            adjMatrix[i] = new int[numVertices];
+        }
+
+        for (int j = 0; j < numVertices; j++) {
+            for (int m = 0; m < numVertices; m++) {
+                adjMatrix[j][m] = inf;
+            }
+        }
+    }
+
+    ~Graph() {
+        delete[] adjMatrix;
+    }
+
+    void addEdge(int u, int v, int weight) {
+        adjMatrix[u][v] = weight;
+        adjMatrix[v][u] = weight; // if directed delete this!
+    }
+
     void primMST();  // Must print MST edges and total weight
+
+    void print() {
+        for (int i = 0; i < numVertices; i++) {
+            for (int j = 0; j < numVertices; j++) {
+                std::cout << adjMatrix[i][j] << " " << std::endl;
+            }
+        }
+    }
 
 private:
     int** adjMatrix;
