@@ -29,7 +29,11 @@ public:
         adjMatrix[v][u] = weight; // if directed delete this!
     }
 
-    void primMST();  // Must print MST edges and total weight
+    void primMST()  // Must print MST edges and total weight
+    {
+        // create heap of size vertices
+        // if element is adj, insert in heap
+    }
 
     void print() {
         for (int i = 0; i < numVertices; i++) {

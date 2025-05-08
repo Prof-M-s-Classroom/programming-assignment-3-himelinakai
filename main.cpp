@@ -12,8 +12,8 @@ int main() {
     g.addEdge(2, 4, 7);
     g.addEdge(3, 4, 9);
 
-    g.print();
+    //g.print();
 
-  //  g.primMST();
+    g.primMST();
     return 0;
 }
