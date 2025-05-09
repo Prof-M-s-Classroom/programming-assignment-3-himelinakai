@@ -50,7 +50,7 @@ public:
     }
 
     void decreaseKey(int vertex, int newKey) {
-
+            keyArray[position[vertex]] = newKey;
     }
 
     void print() {
@@ -75,7 +75,9 @@ public:
         return false;
     }
 
-    bool isEmpty();
+    bool isEmpty() {
+        return size == 0;
+    }
 
 private:
     int* heapArray;        // Heap of vertex indices
@@ -101,8 +103,6 @@ private:
                 }
             }
         }
-
-        return;
     }
 };
 

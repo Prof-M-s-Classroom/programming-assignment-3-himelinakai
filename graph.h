@@ -26,7 +26,7 @@ public:
 
     void addEdge(int u, int v, int weight) {
         adjMatrix[u][v] = weight;
-        adjMatrix[v][u] = weight; // if directed delete this!
+        adjMatrix[v][u] = weight;
     }
 
     void primMST()  // Must print MST edges and total weight
