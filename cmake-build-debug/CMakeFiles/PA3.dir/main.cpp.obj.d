@@ -150,4 +150,5 @@ CMakeFiles/PA3.dir/main.cpp.obj: \
  C:/Program\ Files/JetBrains/CLion\ 2024.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/ostream.tcc \
  C:/Program\ Files/JetBrains/CLion\ 2024.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/istream \
  C:/Program\ Files/JetBrains/CLion\ 2024.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/istream.tcc \
- C:\Users\honuk\CS210\programming-assignment-3-himelinakai\graph.h
+ C:\Users\honuk\CS210\programming-assignment-3-himelinakai\graph.h \
+ C:\Users\honuk\CS210\programming-assignment-3-himelinakai\heap.h

@@ -152,7 +152,8 @@ CMakeFiles/PA3.dir/main.cpp.obj: C:/Users/honuk/CS210/programming-assignment-3-h
   C:/Program\ Files/JetBrains/CLion\ 2024.3.2/bin/mingw/x86_64-w64-mingw32/include/vadefs.h \
   C:/Program\ Files/JetBrains/CLion\ 2024.3.2/bin/mingw/x86_64-w64-mingw32/include/wchar.h \
   C:/Program\ Files/JetBrains/CLion\ 2024.3.2/bin/mingw/x86_64-w64-mingw32/include/wctype.h \
-  C:/Users/honuk/CS210/programming-assignment-3-himelinakai/graph.h
+  C:/Users/honuk/CS210/programming-assignment-3-himelinakai/graph.h \
+  C:/Users/honuk/CS210/programming-assignment-3-himelinakai/heap.h
 
 
 C:/Program\ Files/JetBrains/CLion\ 2024.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/max_size_type.h:
@@ -410,6 +411,8 @@ C:/Program\ Files/JetBrains/CLion\ 2024.3.2/bin/mingw/x86_64-w64-mingw32/include
 C:/Program\ Files/JetBrains/CLion\ 2024.3.2/bin/mingw/x86_64-w64-mingw32/include/_mingw_secapi.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2024.3.2/bin/mingw/x86_64-w64-mingw32/include/_timeval.h:
+
+C:/Users/honuk/CS210/programming-assignment-3-himelinakai/heap.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2024.3.2/bin/mingw/x86_64-w64-mingw32/include/corecrt_startup.h:
 

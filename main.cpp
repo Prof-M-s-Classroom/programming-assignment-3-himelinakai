@@ -1,7 +1,21 @@
 #include <iostream>
 #include "graph.h"
+#include "heap.h"
 
 int main() {
+
+    MinHeap heap(5);
+    heap.insert(2, 1);
+    heap.insert(7, 2);
+    heap.insert(4, 3);
+    heap.print();
+
+    int test = heap.extractMin();
+    std::cout << test << std::endl;
+    heap.print();
+
+
+    /*
     Graph g(5);
 
     g.addEdge(0, 1, 2);
@@ -15,5 +29,6 @@ int main() {
     //g.print();
 
     g.primMST();
+    */
     return 0;
 }

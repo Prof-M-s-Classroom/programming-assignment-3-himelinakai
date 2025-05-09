@@ -33,6 +33,12 @@ public:
     {
         // create heap of size vertices
         // if element is adj, insert in heap
+
+        // while heap array is not empty
+            // extract min
+            // whatever is at pos 1 becomes new root, make sure new positions are updated
+            // update keys
+            // minheapify
     }
 
     void print() {
