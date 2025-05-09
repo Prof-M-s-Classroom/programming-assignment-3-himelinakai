@@ -44,6 +44,13 @@ public:
         for (int i = 0; i < size; i++) {
             heapArray[i] = heapArray[i + 1];
         }
+
+        for (int j = 1; j <= size; j++) {
+            if (position[j] != 0) {
+                position[j]--;
+            }
+        }
+
         heapArray[size] = INT_MAX;
         size--;
         return min;
@@ -61,6 +68,11 @@ public:
         std::cout << std::endl;
         for (int j = 0; j < capacity; j++) {
             std::cout << keyArray[j] << " ";
+        }
+        std::cout << std::endl;
+
+        for (int m = 0; m < capacity; m++) {
+            std::cout << position[m] << " ";
         }
         std::cout << std::endl;
     }
@@ -91,13 +103,10 @@ private:
             for (int i = idx - 1; i >= 0; i--) {
                 if (heapArray[idx] < heapArray[i]) {
                     int tempKey = keyArray[i];
-                    int tempPos = position[i];
                     int temp = heapArray[i];
                     keyArray[i] = keyArray[idx];
-                    position[i] = position[idx];
                     heapArray[i] = heapArray[idx];
                     keyArray[idx] = tempKey;
-                    position[idx] = tempPos;
                     heapArray[idx] = temp;
                     idx--;
                 }

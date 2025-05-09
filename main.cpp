@@ -11,7 +11,9 @@ int main() {
     heap.print();
 
     int test = heap.extractMin();
-    std::cout << test << std::endl;
+    heap.print();
+
+    int test2 = heap.extractMin();
     heap.print();
 
 
