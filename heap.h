@@ -1,5 +1,6 @@
 #ifndef HEAP_H
 #define HEAP_H
+#include <ranges>
 
 class MinHeap {
 public:
@@ -25,12 +26,28 @@ public:
             return;
         }
 
-        if (!isInMinHeap(vertex)) {
-            heapArray[size] = vertex;
-            keyArray[size] = key;
-            position[size] = size;
-            minHeapify(size);
+        if (size == 0) {
+            keyArray[0] = key;
+            position[0] = size;
+            heapArray[0] = vertex;
             size++;
+        }
+        else {
+            if (!isInMinHeap(vertex)) {
+                heapArray[size] = vertex;
+                keyArray[size] = key;
+                position[size] = size;
+
+                int curr = size;
+                while (curr > 0) {
+                   int par = (curr - 1) / 2;
+                   if (keyArray[position[curr]] < keyArray[position[par]]) {
+                       std::swap(position[position[curr]],position[position[par]]);
+                   }
+                   curr = par;
+                }
+                size++;
+            }
         }
     }
 
@@ -41,23 +58,28 @@ public:
         }
 
         int min = heapArray[0];
-        for (int i = 0; i < size; i++) {
-            heapArray[i] = heapArray[i + 1];
-        }
-
-        for (int j = 1; j <= size; j++) {
-            if (position[j] != 0) {
-                position[j]--;
-            }
-        }
-
-        heapArray[size] = INT_MAX;
+        heapArray[0] = heapArray[size];
         size--;
+        minHeapify(0);
         return min;
     }
 
     void decreaseKey(int vertex, int newKey) {
             keyArray[position[vertex]] = newKey;
+    }
+
+    bool isInMinHeap(int vertex) {
+        for(int i = 0; i < size; i++) {
+            if (heapArray[i] == vertex) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    bool isEmpty() {
+        return size == 0;
     }
 
     void print() {
@@ -77,41 +99,15 @@ public:
         std::cout << std::endl;
     }
 
-    bool isInMinHeap(int vertex) {
-        for(int i = 0; i < size; i++) {
-            if (heapArray[i] == vertex) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    bool isEmpty() {
-        return size == 0;
-    }
-
 private:
     int* heapArray;        // Heap of vertex indices
     int* keyArray;         // Corresponding key values
-    int* position;         // Maps vertex to its position in heap
+    int* position;         // Maps vertex to its position in heap   pos[vertex] = pos of vertex
     int capacity;
     int size;
 
     void minHeapify(int idx) {
-        if (idx > 0 && idx <= size && size > 0) {
-            for (int i = idx - 1; i >= 0; i--) {
-                if (heapArray[idx] < heapArray[i]) {
-                    int tempKey = keyArray[i];
-                    int temp = heapArray[i];
-                    keyArray[i] = keyArray[idx];
-                    heapArray[i] = heapArray[idx];
-                    keyArray[idx] = tempKey;
-                    heapArray[idx] = temp;
-                    idx--;
-                }
-            }
-        }
+        int pos = position[idx];
     }
 };
 

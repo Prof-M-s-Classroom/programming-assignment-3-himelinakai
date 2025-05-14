@@ -5,15 +5,10 @@
 int main() {
 
     MinHeap heap(5);
-    heap.insert(2, 1);
-    heap.insert(7, 2);
-    heap.insert(4, 3);
-    heap.print();
-
-    int test = heap.extractMin();
-    heap.print();
-
-    int test2 = heap.extractMin();
+    heap.insert(2, 5);
+    heap.insert(7, 7);
+    heap.insert(4, 1);
+    heap.insert(1, 0);
     heap.print();
 
 
