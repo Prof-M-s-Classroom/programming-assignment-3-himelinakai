@@ -10,10 +10,12 @@ public:
 
         heapArray = new int[capacity];
         keyArray = new int[capacity];
+        position = new int[capacity];
         for (int i = 0; i < capacity; i++) {
             keyArray[i] = INT_MAX;
+            heapArray[i] = INT_MAX;
+            position[i] = -1;
         }
-        position = new int[capacity];
     }
 
     ~MinHeap() {
@@ -21,33 +23,32 @@ public:
         delete[] keyArray;
         delete[] position;
     }
+
     void insert(int vertex, int key) {
-        if (size >= capacity) {
-            return;
-        }
+        if (!isInMinHeap(vertex) && size < capacity) {
+            heapArray[size] = vertex;
+            position[vertex] = size;
+            keyArray[size] = key;
 
-        if (size == 0) {
-            keyArray[0] = key;
-            position[0] = size;
-            heapArray[0] = vertex;
-            size++;
-        }
-        else {
-            if (!isInMinHeap(vertex)) {
-                heapArray[size] = vertex;
-                keyArray[size] = key;
-                position[size] = size;
+            int curr = size;
+            int parent = (curr - 1) / 2;
+            while (curr > 0 && keyArray[curr] < keyArray[parent]) {
+                // Swap the nodes
+                std::swap(heapArray[curr], heapArray[parent]);
+                std::swap(keyArray[curr], keyArray[parent]);
 
-                int curr = size;
-                while (curr > 0) {
-                   int par = (curr - 1) / 2;
-                   if (keyArray[position[curr]] < keyArray[position[par]]) {
-                       std::swap(position[position[curr]],position[position[par]]);
-                   }
-                   curr = par;
-                }
-                size++;
+
+                // Update position array
+                position[heapArray[curr]] = curr;
+                position[heapArray[parent]] = parent;
+
+
+                // Move up
+                curr = parent;
+                parent = (curr - 1) / 2;
             }
+
+            size++;
         }
     }
 
@@ -89,7 +90,9 @@ public:
     }
 
     void decreaseKey(int vertex, int newKey) {
+        if (position[vertex] == -1 || keyArray[position[vertex]] <= newKey) {
             keyArray[position[vertex]] = newKey;
+        }
     }
 
     bool isInMinHeap(int vertex) {
@@ -108,19 +111,8 @@ public:
 
     void print() {
         for (int i = 0; i < capacity; i++) {
-            std::cout << heapArray[i] << " ";
+            std::cout << heapArray[i] << " " << std::endl;
         }
-
-        std::cout << std::endl;
-        for (int j = 0; j < capacity; j++) {
-            std::cout << keyArray[j] << " ";
-        }
-        std::cout << std::endl;
-
-        for (int m = 0; m < capacity; m++) {
-            std::cout << position[m] << " ";
-        }
-        std::cout << std::endl;
     }
 
 private:
