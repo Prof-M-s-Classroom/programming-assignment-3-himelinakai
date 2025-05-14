@@ -79,7 +79,25 @@ public:
 
     void decreaseKey(int vertex, int newKey) {
         if (position[vertex] == -1 || keyArray[position[vertex]] <= newKey) {
-            keyArray[position[vertex]] = newKey;
+            return;
+        }
+
+        keyArray[position[vertex]] = newKey;
+
+        int curr = size;
+        int parent = (curr - 1) / 2;
+        while (curr > 0 && keyArray[curr] < keyArray[parent]) {
+            // Swap the nodes
+            std::swap(heapArray[curr], heapArray[parent]);
+            std::swap(keyArray[curr], keyArray[parent]);
+
+            // Update position array
+            position[heapArray[curr]] = curr;
+            position[heapArray[parent]] = parent;
+
+            // Move up
+            curr = parent;
+            parent = (curr - 1) / 2;
         }
     }
 

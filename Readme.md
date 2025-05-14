@@ -21,13 +21,22 @@ Run directly from the IDE.
 
 
 | Operation            | Time Complexity |
-|----------------------|----------------|
-| Insert in MinHeap    | log(n)         |
-| Extract Min          |                |
-| Decrease Key         |                |
-| Prim’s MST Overall   |                |
+|----------------------|-----------------|
+| Insert in MinHeap    | O(logn)         |
+| Extract Min          | O(logn)         |
+| Decrease Key         | O(logn)         |
+| Prim’s MST Overall   | O(n logn)       |
 
-_Explain why your MST implementation has the above runtime._
+Insertion requires upheaping in the event that the newest vertex is smaller than its ancestors. Upheaping has
+a time complexity of O(logn). 
+
+Extracting the minimum runs to O(logn) because it requires downheaping if the new node is not the smallest vertex.
+Accessing the minimum itself is O(1).
+
+Decreasing the key requires potential upheaping since the decreased key may now be smaller than its ancestors'. The
+time complexity of upheaping is O(logn).
+
+
 
 ## Test Case Description
 
