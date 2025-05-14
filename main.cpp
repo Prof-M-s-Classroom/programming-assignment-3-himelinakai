@@ -4,22 +4,6 @@
 
 int main() {
 
-
-    MinHeap heap(5);
-    heap.insert(1, 5);
-    heap.insert(3, 7);
-    heap.insert(4, 1);
-    heap.insert(0, 0);
-    heap.insert(2, 2);
-    heap.print();
-
-/*
-    std::cout << std::endl;
-    int test = heap.extractMin();
-    heap.print();
-    */
-
-    /*
     Graph g(5);
 
     g.addEdge(0, 1, 2);
@@ -30,10 +14,7 @@ int main() {
     g.addEdge(2, 4, 7);
     g.addEdge(3, 4, 9);
 
-    //g.print();
-
-    /*
     g.primMST();
-    */
+
     return 0;
 }

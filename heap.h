@@ -1,6 +1,5 @@
 #ifndef HEAP_H
 #define HEAP_H
-#include <ranges>
 
 class MinHeap {
 public:
@@ -25,65 +24,54 @@ public:
     }
 
     void insert(int vertex, int key) {
-        if (!isInMinHeap(vertex) && size < capacity) {
-            heapArray[size] = vertex;
-            position[vertex] = size;
-            keyArray[size] = key;
-
-            int curr = size;
-            int parent = (curr - 1) / 2;
-            while (curr > 0 && keyArray[curr] < keyArray[parent]) {
-                // Swap the nodes
-                std::swap(heapArray[curr], heapArray[parent]);
-                std::swap(keyArray[curr], keyArray[parent]);
-
-
-                // Update position array
-                position[heapArray[curr]] = curr;
-                position[heapArray[parent]] = parent;
-
-
-                // Move up
-                curr = parent;
-                parent = (curr - 1) / 2;
-            }
-
-            size++;
+        if (size == capacity || isInMinHeap(vertex)) {
+            return;
         }
+
+        // Insert at the end of the heap
+        heapArray[size] = vertex;
+        keyArray[size] = key;
+        position[vertex] = size;
+
+        int curr = size;
+        int parent = (curr - 1) / 2;
+        while (curr > 0 && keyArray[curr] < keyArray[parent]) {
+            // Swap the nodes
+            std::swap(heapArray[curr], heapArray[parent]);
+            std::swap(keyArray[curr], keyArray[parent]);
+
+            // Update position array
+            position[heapArray[curr]] = curr;
+            position[heapArray[parent]] = parent;
+
+            // Move up
+            curr = parent;
+            parent = (curr - 1) / 2;
+        }
+
+        size++;
     }
 
     int extractMin() {
-        if (size == 0) {
+        if (size <= 0) {
             std::cout << "Empty MinHeap" << std::endl;
             return -1;
         }
 
-        int min;
-        if (size == 1) {
-            min = heapArray[0];
-            position[0] = -1;
-            heapArray[0] = INT_MAX;
-            size--;
+        int min = heapArray[0];
+
+        heapArray[0] = heapArray[size - 1];
+        keyArray[0] = keyArray[size - 1];
+
+        if (size > 1) {
+            position[heapArray[0]] = 0;
         }
-        else {
-            for (int i = 0; i < size; i++) {
-                if (position[i] == 0) {
-                    min = heapArray[i];
-                    position[i] = -1;
-                    heapArray[i] = INT_MAX;
-                }
-            }
+        position[min] = -1;
 
-            int maxIdx = 0;
-            for (int j = 1; j < size; j++) {
-                if (position[maxIdx] < position[j]) {
-                    maxIdx = j;
-                }
-            }
+        size--;
 
-            position[maxIdx] = 0;
-            size--;
-            minHeapify(maxIdx);
+        if (size > 0) {
+            minHeapify(0);
         }
 
         return min;
@@ -96,13 +84,7 @@ public:
     }
 
     bool isInMinHeap(int vertex) {
-        for(int i = 0; i < size; i++) {
-            if (heapArray[i] == vertex) {
-                return true;
-            }
-        }
-
-        return false;
+        return position[vertex] != -1 && position[vertex] < size;
     }
 
     bool isEmpty() {
@@ -110,10 +92,28 @@ public:
     }
 
     void print() {
-        for (int i = 0; i < capacity; i++) {
-            std::cout << heapArray[i] << " " << std::endl;
+        std::cout << "Heap Array: ";
+        for (int i = 0; i < size; i++) {
+            std::cout << heapArray[i] << " ";
         }
+        std::cout << std::endl;
+
+
+        std::cout << "Key Array: ";
+        for (int i = 0; i < size; i++) {
+            std::cout << keyArray[i] << " ";
+        }
+        std::cout << std::endl;
+
+
+        std::cout << "Position Array: ";
+        for (int i = 0; i < capacity; i++) {
+            if (position[i] != -1)
+                std::cout << i << "->" << position[i] << " ";
+        }
+        std::cout << std::endl;
     }
+
 
 private:
     int* heapArray;        // Heap of vertex indices
@@ -123,40 +123,34 @@ private:
     int size;
 
     void minHeapify(int idx) {
-        int left = 0, right = 0;
-        int curr = position[idx];
-        std::cout << curr << std::endl;
+        int left = 2 * idx + 1;
+        int right = 2 * idx + 2;
+        int smallest = idx;
 
-        while (curr < size) {
+        // Find the smallest among node and its children
+        if (left < size && keyArray[left] < keyArray[smallest])
+            smallest = left;
 
-            left = 2 * curr + 1;
-            right = 2 * curr + 2;
-            std::cout << left << " " << right << std::endl;
 
-            //If both left and right exist
-            if(left <= size && right <= size) {
-                if (keyArray[position[curr]] <= keyArray[position[left]] && keyArray[position[curr]] <= keyArray[right]) {
-                    std::cout << keyArray[position[curr]] << " " << std::endl;
-                    std::cout << "Node is less that left & right child"<<std::endl;
-                    return;
-                }
-                if (keyArray[position[right] - 1] <= keyArray[position[left] - 1]) { //curr is greater than right child
-                    std::swap(position[position[curr]], position[position[right]]);
-                    curr = right;
-                } else { //curr is greater than left child
-                    std::swap(position[position[curr]], position[position[left]]);
-                    curr = left;
-                }
-            }
-            //only left exists
-            if(right > size){
-                if (keyArray[position[left]] < keyArray[position[curr]]) { //curr is greater than left child
-                    std::swap(position[position[curr]], position[position[left]]);
-                    curr = left;
-                }
-                else return;
-            }
+        if (right < size && keyArray[right] < keyArray[smallest])
+            smallest = right;
+
+
+        // If the smallest is not the current node, swap and continue heapifying
+        if (smallest != idx) {
+            std::swap(heapArray[idx], heapArray[smallest]);
+            std::swap(keyArray[idx], keyArray[smallest]);
+
+
+            // Update position array
+            position[heapArray[idx]] = idx;
+            position[heapArray[smallest]] = smallest;
+
+
+            // Recursively heapify the affected subtree
+            minHeapify(smallest);
         }
+
     }
 };
 
