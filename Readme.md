@@ -2,7 +2,7 @@
 # Prim's Algorithm with Min Heap and Adjacency Matrix
 
 ## Author
-Your Name Here
+Melina Kai Kwarcinski
 
 ## Description
 Briefly describe what your program does and how the code is structured.
@@ -20,12 +20,12 @@ Run directly from the IDE.
 ## Time Complexity Analysis
 
 
-| Operation            | Time Complexity   |
-|----------------------|-------------------|
-| Insert in MinHeap    |                   |
-| Extract Min          |                   |
-| Decrease Key         |                   |
-| Prim’s MST Overall   |                   |
+| Operation            | Time Complexity |
+|----------------------|----------------|
+| Insert in MinHeap    | log(n)         |
+| Extract Min          |                |
+| Decrease Key         |                |
+| Prim’s MST Overall   |                |
 
 _Explain why your MST implementation has the above runtime._
 
