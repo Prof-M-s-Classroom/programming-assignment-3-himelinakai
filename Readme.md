@@ -5,11 +5,13 @@
 Melina Kai Kwarcinski
 
 ## Description
-Briefly describe what your program does and how the code is structured.
+This program uses a min heap in order to implement Prim's Algorithm to find the MST of a given graph.
+The graph is stored as an adjacency matrix, and the vertices are ordered by key value in the min heap.
+The min heap is implemented via three arrays: a vertex array, a key array and a position array. 
 
 ## Files
-- graph.h / graph.cpp
-- heap.h / heap.cpp
+- graph.h
+- heap.h
 - main.cpp (unchanged)
 - README.md
 
