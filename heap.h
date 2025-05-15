@@ -92,7 +92,7 @@ public:
         keyArray[position[vertex]] = newKey;
 
         // New key would result in "smaller" value, will need to upheap into correct spot
-        int curr = size;
+        int curr = position[vertex];
         int parent = (curr - 1) / 2;
         while (curr > 0 && keyArray[curr] < keyArray[parent]) {
             // Swap the nodes
