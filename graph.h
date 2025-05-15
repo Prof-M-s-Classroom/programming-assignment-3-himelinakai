@@ -1,6 +1,7 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 #include "heap.h"
+using namespace std;
 
 class Graph {
 public:
@@ -9,10 +10,13 @@ public:
         int inf = INT_MAX;
         numVertices = vertices;
         adjMatrix = new int*[numVertices];
+
+        // adjMatrix is an array of arrays, so need to initialize an array for each vertex
         for (int i = 0; i < numVertices; i++) {
             adjMatrix[i] = new int[numVertices];
         }
 
+        // Mark vertices as not adjacent by default, so initialize with INF
         for (int j = 0; j < numVertices; j++) {
             for (int m = 0; m < numVertices; m++) {
                 adjMatrix[j][m] = inf;
@@ -28,59 +32,66 @@ public:
 
     }
 
+    // Graph is undirected, set edge between two vertices to key value
     void addEdge(int u, int v, int weight) {
         adjMatrix[u][v] = weight;
         adjMatrix[v][u] = weight;
     }
 
     void primMST() {
-        MinHeap heap(numVertices);
+        // Must print MST edges and total weight
+       bool inMST[numVertices]; // Array holding vertices in MST
+       int key[numVertices]; // Array storing key values
+       int parent[numVertices]; // Array storing parent indexes
 
-        // Insert vertex 0 into heap
-        heap.insert(0,0);
+        // Start with arrays empty - no vertices in MST yet
+       for (int i = 0; i < numVertices; i++) {
+           key[i] = INT_MAX;
+           inMST[i] = false;
+       }
 
-        // Initialize the rest of the values of the heap
-        for (int i = 0; i < numVertices; i++) {
-            heap.insert(i, INT_MAX);
-        }
+       key[0] = 0;  // Want vertex 0 to be starting point
+       parent[0] = -1;
 
-        // Vertex 0 has key value of 0
-        heap.decreaseKey(0, 0);
 
-        int parent[numVertices];
-        int child[numVertices];
-        int weight[numVertices];
+       cout << "Edges in the MST:" << endl;
+       int total_cost = 0;
 
-        // Initialize key values for first row
-        for (int i = 1; i < numVertices; i++) {
-            heap.decreaseKey(i, adjMatrix[0][i]);
-            parent[i] = 0;
-            child[i] = i;
-            weight[i] = adjMatrix[0][i];
-        }
+       for (int count = 0; count < numVertices; count++) {
+           // Find minimum key from unvisited vertices
+           int u = -1;
+           int min = INT_MAX;
+           for (int v = 0; v < numVertices; v++) {
+               if (!inMST[v] && key[v] < min) {
+                   min = key[v];
+                   u = v;
+               }
+           }
 
-        // Updates arrays (extract min and decrease key
-        for (int i = 1; i < numVertices + 1; i++) {
-            heap.extractMin();
-            for (int j = i+1; j < numVertices; j++) {
-                if (adjMatrix[i][j] < adjMatrix[i - 1][j]) {
-                    heap.decreaseKey(j, adjMatrix[i][j]);
-                    parent[j] = i;
-                    child[j] = j;
-                    weight[j] = adjMatrix[i][j];
-                }
-            }
-        }
+           if (u == -1) {
+               break; // No valid vertex
+           }
 
-        int total_cost = 0;
-        // Don't include first
-        for (int i = 1; i < numVertices; i++) {
-            std::cout << parent[i] << " -- " << child[i] << " (" << weight[i] << ")" << std::endl;
-            total_cost += weight[i];
-        }
 
-        std::cout << "Total Cost: " << total_cost << std::endl;
+           // Add picked vertex to the MST
+           inMST[u] = true;
 
+           // Print the edge that was just added to MST
+           if (parent[u] != -1) {
+               cout << parent[u] << " -- " << u << " (" << adjMatrix[parent[u]][u] << ")" << endl;
+               total_cost += adjMatrix[parent[u]][u];
+           }
+
+           // Update key value and parent index of the adjacent vertices
+           for (int v = 0; v < numVertices; v++) {
+               if (adjMatrix[u][v] != 0 && !inMST[v] && adjMatrix[u][v] < key[v]) {
+                   parent[v] = u;
+                   key[v] = adjMatrix[u][v];
+               }
+           }
+       }
+
+       cout << "Total Cost: " << total_cost << endl;
     }
 
 

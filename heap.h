@@ -30,7 +30,7 @@ public:
 
         // Insert at the end of the heap
         heapArray[size] = vertex;
-        keyArray[size] = key;
+        keyArray[vertex] = key;
         position[vertex] = size;
 
         int curr = size;

@@ -24,10 +24,10 @@ Run directly from the IDE.
 
 | Operation            | Time Complexity |
 |----------------------|-----------------|
-| Insert in MinHeap    | O(logn)         |
-| Extract Min          | O(logn)         |
-| Decrease Key         | O(logn)         |
-| Prim’s MST Overall   | O(n logn)       |
+| Insert in MinHeap    | O(logN)         |
+| Extract Min          | O(logN)         |
+| Decrease Key         | O(logN)         |
+| Prim’s MST Overall   | O(V^2)          |
 
 Insertion requires upheaping in the event that the newest vertex is smaller than its ancestors. Upheaping has
 a time complexity of O(logn). 
@@ -38,8 +38,52 @@ Accessing the minimum itself is O(1).
 Decreasing the key requires potential upheaping since the decreased key may now be smaller than its ancestors'. The
 time complexity of upheaping is O(logn).
 
-
+Because of the use of an adjacency matrix, the time complexity of PrimMST is O(V^2). 
 
 ## Test Case Description
 
-Input:  
+Test #1
+
+Input:
+
+    Graph g(5);
+    g.addEdge(0, 1, 2);
+    g.addEdge(0, 3, 6);
+    g.addEdge(1, 2, 3);
+    g.addEdge(1, 3, 8);
+    g.addEdge(1, 4, 5);
+    g.addEdge(2, 4, 7);
+    g.addEdge(3, 4, 9);
+
+
+Output:
+
+    0 -- 1 (2)
+    1 -- 2 (3)
+    0 -- 3 (6)
+    1 -- 4 (5)
+    Total Cost: 16
+
+Test #2
+
+Input:
+
+    Graph g(6);
+    g.addEdge(0, 1, 3);
+    g.addEdge(0, 2, 2);
+    g.addEdge(1, 5, 8);
+    g.addEdge(1, 3, 6);
+    g.addEdge(2, 3, 1);
+    g.addEdge(2, 4, 4);
+    g.addEdge(3, 5, 2);
+
+Output:
+
+    0 -- 2 (2)
+    2 -- 3 (1)
+    3 -- 5 (2)
+    0 -- 1 (3)
+    2 -- 4 (4)
+    Total Cost: 12
+
+
