@@ -10,6 +10,7 @@ public:
         heapArray = new int[capacity];
         keyArray = new int[capacity];
         position = new int[capacity];
+        // Initialize arrays
         for (int i = 0; i < capacity; i++) {
             keyArray[i] = INT_MAX;
             heapArray[i] = INT_MAX;
@@ -24,6 +25,7 @@ public:
     }
 
     void insert(int vertex, int key) {
+        // Do not add if graph is already full or if the vertex already exists
         if (size == capacity || isInMinHeap(vertex)) {
             return;
         }
@@ -33,6 +35,7 @@ public:
         keyArray[vertex] = key;
         position[vertex] = size;
 
+        // Need to upheap if min heap rules are violated
         int curr = size;
         int parent = (curr - 1) / 2;
         while (curr > 0 && keyArray[curr] < keyArray[parent]) {
@@ -58,8 +61,10 @@ public:
             return -1;
         }
 
+        // Minimum is at root
         int min = heapArray[0];
 
+        // Last vertex becomes the root
         heapArray[0] = heapArray[size - 1];
         keyArray[0] = keyArray[size - 1];
 
@@ -70,6 +75,7 @@ public:
 
         size--;
 
+        // Need to down heap if the new root violates the rules of a min heap
         if (size > 0) {
             minHeapify(0);
         }
@@ -82,8 +88,10 @@ public:
             return;
         }
 
+        // Update the key
         keyArray[position[vertex]] = newKey;
 
+        // New key would result in "smaller" value, will need to upheap into correct spot
         int curr = size;
         int parent = (curr - 1) / 2;
         while (curr > 0 && keyArray[curr] < keyArray[parent]) {
@@ -141,11 +149,12 @@ private:
     int size;
 
     void minHeapify(int idx) {
+        // Stored in array so need to find index of children
         int left = 2 * idx + 1;
         int right = 2 * idx + 2;
         int smallest = idx;
 
-        // Find the smallest among node and its children
+        // Find the smallest between vertex and its children
         if (left < size && keyArray[left] < keyArray[smallest])
             smallest = left;
 
@@ -154,7 +163,7 @@ private:
             smallest = right;
 
 
-        // If the smallest is not the current node, swap and continue heapifying
+        // If the smallest is not the current vertex, swap and continue heapifying
         if (smallest != idx) {
             std::swap(heapArray[idx], heapArray[smallest]);
             std::swap(keyArray[idx], keyArray[smallest]);
@@ -165,7 +174,7 @@ private:
             position[heapArray[smallest]] = smallest;
 
 
-            // Recursively heapify the affected subtree
+            // Recursively heapify until minimum vertex is in correct spot
             minHeapify(smallest);
         }
 
