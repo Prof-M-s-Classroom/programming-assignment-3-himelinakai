@@ -62,6 +62,7 @@ Input:
 
 Output:
 
+    Edges in the MST:
     0 -- 1 (2)
     1 -- 2 (3)
     0 -- 3 (6)
@@ -83,6 +84,7 @@ Input:
 
 Output:
 
+    Edges in the MST:
     0 -- 2 (2)
     2 -- 3 (1)
     3 -- 5 (2)
