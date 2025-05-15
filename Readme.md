@@ -40,6 +40,10 @@ time complexity of upheaping is O(logn).
 
 Because of the use of an adjacency matrix, the time complexity of PrimMST is O(V^2). 
 
+## Assumptions
+I assumed that all vertices would be sequential numbers, ie. 0, 1, 2...
+I also assumed that the graph would be connected. 
+
 ## Test Case Description
 
 Test #1
@@ -85,5 +89,7 @@ Output:
     0 -- 1 (3)
     2 -- 4 (4)
     Total Cost: 12
+
+I also tested a few edge cases such as an empty graph or a graph with only one edge. 
 
 
