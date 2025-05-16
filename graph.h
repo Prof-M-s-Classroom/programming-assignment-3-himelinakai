@@ -53,7 +53,7 @@ public:
         }
 
 
-        key[0] = 0;
+        key[0] = 0; // Start at vertex 0
 
 
         // Insert all vertices into the min heap
@@ -70,7 +70,7 @@ public:
             int u = heap.extractMin();
 
 
-            // Print edge when it's added to MST (except the starting node)
+            // Print edge when it's added to the MST
             if (parent[u] != -1) {
                 cout << parent[u] << " -- " << u << " (" << adjMatrix[u][parent[u]] << ")" << endl;
                 totalWeight += adjMatrix[u][parent[u]];
