@@ -76,7 +76,7 @@ public:
                 totalWeight += adjMatrix[u][parent[u]];
             }
 
-
+            // Update adjacent vertices
             for (int v = 0; v < numVertices; v++) {
                 int weight = adjMatrix[u][v];
                 if (weight != INT_MAX && heap.isInMinHeap(v) && weight < key[v]) {
