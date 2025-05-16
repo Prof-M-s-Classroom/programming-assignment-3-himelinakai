@@ -39,13 +39,14 @@ public:
     }
 
     void primMST() {
-        int* parent = new int[numVertices];  // Store MST structure
-        int* key = new int[numVertices];     // Used for min edge weight
+        int* parent = new int[numVertices];  // Store MST
+        int* key = new int[numVertices];     // Store keys
 
 
         MinHeap heap(numVertices);
 
 
+        // Initialize all key values to INF and vertex values to -1
         for (int i = 0; i < numVertices; i++) {
             key[i] = INT_MAX;
             parent[i] = -1;
